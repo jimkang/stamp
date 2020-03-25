@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Stamp</title>
+    <link rel="stylesheet" href="app.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="centered-col">
+    <section>
+      Clicking the button will produce a string that you can use for a
+      Zettlekasten id (or for whatever you want). It creates the string using
+      the current date and time along with the options you set here.
+    </section>
+
+    <section class="form-container centered-col">
+      <div class="fields-container">
+        <div>
+          Number of characters to use:
+          <input id="number-of-chars-input" type="number" value="16" />
+        </div>
+        <div>
+          Separator between date and time:
+          <input id="separator-input" type="text" value="----" />
+        </div>
+      </div>
+      <button id="get-stamp-button">Get stamp for current time</button>
+    </section>
+    <section class="results-zone centered-col hidden">
+      <textarea id="stamp-field" rows="2"></textarea>
+      <button id="copy-button">Copy stamp</button>
+    </section>
+
+    <script>
+      var charsInputEl = document.getElementById('number-of-chars-input');
+      var separatorInputEl = document.getElementById('separator-input');
+      var fieldEl = document.getElementById('stamp-field');
+      var getStampButtonEl = document.getElementById('get-stamp-button');
+      var copyButtonEl = document.getElementById('copy-button');
+      var resultsZoneEl = document.querySelector('.results-zone');
+
+      getStampButtonEl.addEventListener('click', onGetStampButtonClick);
+      copyButtonEl.addEventListener('click', onCopyButtonClick);
+
+      function onGetStampButtonClick() {
+        fieldEl.textContent = new Date()
+          .toISOString()
+          .slice(0, +charsInputEl.value)
+          .replace('T', separatorInputEl.value);
+        resultsZoneEl.classList.remove('hidden');
+      }
+
+      function onCopyButtonClick() {
+        var stamp = fieldEl.select();
+        document.execCommand('copy');
+      }
+    </script>
+  </body>
+</html>
