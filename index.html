@@ -23,7 +23,7 @@
           <input id="separator-input" type="text" value="----" />
         </div>
       </div>
-      <button id="get-stamp-button">Get stamp for current time</button>
+      <button id="get-stamp-button">Get stamp for current time (and copy to clipboard)</button>
     </section>
     <section class="results-zone centered-col hidden">
       <textarea id="stamp-field" rows="2"></textarea>
@@ -47,6 +47,8 @@
           .slice(0, +charsInputEl.value)
           .replace('T', separatorInputEl.value);
         resultsZoneEl.classList.remove('hidden');
+        // Also copy to the clipboard.
+        onCopyButtonClick();
       }
 
       function onCopyButtonClick() {
